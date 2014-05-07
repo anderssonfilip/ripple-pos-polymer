@@ -1,17 +1,66 @@
 <!-- Import Polymer -->
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
+<link rel="import" href="../bower_components/qr-code/src/qr-code.html">
+
+<script src="../bower_components/qr-code/src/qr.js"></script>
+
+<style>
+
+table{
+  border: 2px!important;
+}
+</style>
+
 <!-- Define your custom element -->
-<polymer-element name="hello-world" attributes="who">
+<polymer-element name="ripple-pos" attributes="receiver currency height width">
 
-    <template>
-        <p>Hello <strong>{{who}}</strong> :)</p>
-    </template>
-
-    <script>
-        Polymer('hello-world', {
-            who: 'World'
-        });
-    </script>
+<template>
+	<div>
+		<input type="number"
+		style="margin:0px" 
+		value="0"
+		oninput="document.getElementById('qr').data=rippleURI()"
+		autofocus
+		id="amount"
+		style="height:30px"
+		/>
+		<qr-code id="qr" data="0"></qr-code>
+	</div>
+</template>
 
 </polymer-element>
+
+
+<script>
+
+	Polymer('ripple-pos', {
+
+		created: function(){
+
+			receiver = '',
+			currency = 'XRP'
+		},
+
+		ready: function() {
+
+			receiver = this.receiver,
+			currency = this.currency
+		}}
+		);
+
+	function rippleURI() {
+
+		if(document.getElementById('amount').value > 0){
+			var uri =  'http://ripple.com//send?to=' + encodeURIComponent(this.receiver) +
+			'&amount=' + encodeURIComponent(document.getElementById('amount').value) + 
+			'/' + encodeURIComponent(this.currency);
+
+			console.log(uri);
+		}
+
+		return uri;
+	};
+
+</script>
+
