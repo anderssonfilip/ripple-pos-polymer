@@ -1,66 +1,67 @@
+<!DOCTYPE html>
+
 <!-- Import Polymer -->
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<link rel="import" href="../bower_components/qr-code/src/qr-code.html">
-
-<script src="../bower_components/qr-code/src/qr.js"></script>
-
-<style>
-
-table{
-  border: 2px!important;
-}
-</style>
+<script type="text/javascript" src="qrcode.min.js"></script>
 
 <!-- Define your custom element -->
-<polymer-element name="ripple-pos" attributes="receiver currency height width">
+<polymer-element name="ripple-pos" attributes="receiver currency size">
 
 <template>
 	<div>
 		<input type="number"
-		style="margin:0px" 
-		value="0"
-		oninput="document.getElementById('qr').data=rippleURI()"
+		value="{{amount}}"
 		autofocus
 		id="amount"
-		style="height:30px"
+		width="150px"
+		style="height:30px;width:{{size}};padding:0px"
 		/>
-		<qr-code id="qr" data="0"></qr-code>
+		<div id="qr"></div>
 	</div>
 </template>
 
 </polymer-element>
 
-
 <script>
 
 	Polymer('ripple-pos', {
 
+		amountChanged : function(){
+
+			if(this.$.amount.value >= 0){
+				amount = this.$.amount.value;
+			}
+			else{
+				amount = 0;
+			}
+
+			var uri = 'http://ripple.com//send?to=' + encodeURIComponent(this.receiver) + '&amount=' + encodeURIComponent(amount) + 
+			'/' + encodeURIComponent(this.currency);
+
+			console.log(uri);
+			qrcode.makeCode(uri);
+		},
+
 		created: function(){
 
 			receiver = '',
-			currency = 'XRP'
+			currency = 'XRP',
+			height = 100,
+			width = 100
 		},
 
 		ready: function() {
 
 			receiver = this.receiver,
-			currency = this.currency
-		}}
-		);
-
-	function rippleURI() {
-
-		if(document.getElementById('amount').value > 0){
-			var uri =  'http://ripple.com//send?to=' + encodeURIComponent(this.receiver) +
-			'&amount=' + encodeURIComponent(document.getElementById('amount').value) + 
-			'/' + encodeURIComponent(this.currency);
-
-			console.log(uri);
-		}
-
-		return uri;
-	};
-
+			currency = this.currency,
+			qrcode = new QRCode(this.$.qr, {
+				text: 'http://ripple.com//send?to=' + encodeURIComponent(this.receiver) + '&amount=' + 0 + 
+				'/' + encodeURIComponent(this.currency),
+				width: this.size,
+				height:this.size-30,
+				correctLevel : QRCode.CorrectLevel.H
+			});
+		}});
+	
 </script>
-
