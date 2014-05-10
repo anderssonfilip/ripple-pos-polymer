@@ -1,12 +1,12 @@
 # Ripple Point-of-Sale
 
 > A Web Component for Ripple (https://ripple.com/) Point of Sale. 
-> Set receiving address and currency in element attributes. A QR to send a
-> specified amount can be scanned by a reader
+> Set receiving address and currency in element attributes to display QR code on your page which when
+scanned will direct to a payment page.
 
 ## Demo
 
-[Check it live!](http://webcomponents.github.io/ripple-qr-pos)
+[Check it live!](http://tradespoke.github.io/ripple-pos-polymer/)
 
 ## Install
 
