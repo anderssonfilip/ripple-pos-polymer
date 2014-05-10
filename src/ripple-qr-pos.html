@@ -6,19 +6,21 @@
 <script type="text/javascript" src="qrcode.min.js"></script>
 
 <!-- Define your custom element -->
-<polymer-element name="ripple-pos" attributes="receiver currency size">
+<polymer-element name="ripple-qr-pos" attributes="receiver currency size">
 
 <template>
-	<div>
-		<input type="number"
-		value="{{amount}}"
-		autofocus
-		id="amount"
-		width="150px"
-		style="height:30px;width:{{size}};padding:0px"
-		/>
-		<div id="qr"></div>
-	</div>
+
+ 	{{currency}}
+	<input type="number"
+	value="{{amount}}"
+	autofocus
+	id="amount"
+	width="150px"
+	style="height:30px;padding:0px;margin:4px auto;"
+	/>
+	
+	<div id="qr"></div>
+
 </template>
 
 </polymer-element>
@@ -26,6 +28,8 @@
 <script>
 
 	Polymer('ripple-pos', {
+
+		size : 200,
 
 		amountChanged : function(){
 
@@ -39,16 +43,12 @@
 			var uri = 'http://ripple.com//send?to=' + encodeURIComponent(this.receiver) + '&amount=' + encodeURIComponent(amount) + 
 			'/' + encodeURIComponent(this.currency);
 
-			console.log(uri);
+			//console.log(uri);
 			qrcode.makeCode(uri);
 		},
 
 		created: function(){
 
-			receiver = '',
-			currency = 'XRP',
-			height = 100,
-			width = 100
 		},
 
 		ready: function() {
@@ -59,7 +59,7 @@
 				text: 'http://ripple.com//send?to=' + encodeURIComponent(this.receiver) + '&amount=' + 0 + 
 				'/' + encodeURIComponent(this.currency),
 				width: this.size,
-				height:this.size-30,
+				height:this.size,
 				correctLevel : QRCode.CorrectLevel.H
 			});
 		}});

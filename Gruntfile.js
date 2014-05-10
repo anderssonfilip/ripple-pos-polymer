@@ -11,11 +11,11 @@ module.exports = function(grunt) {
         },
         'gh-pages': {
             options: {
-                clone: 'bower_components/ripple-pos-polymer'
+                clone: 'bower_components/ripple-qr-pos-polymer'
             },
             src: [
                 'bower_components/**/*',
-                '!bower_components/ripple-pos-polymer/**/*',
+                '!bower_components/ripple-qr-pos-polymer/**/*',
                 'src/*', 'index.html'
             ]
         },
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-gh-pages');
     grunt.loadNpmTasks('grunt-text-replace');
 
-    grunt.registerTask('build',  ['replace']);
+    grunt.registerTask('build', ['replace']);
     grunt.registerTask('deploy', ['gh-pages']);
     grunt.registerTask('server', ['connect']);
 
