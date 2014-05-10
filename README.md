@@ -33,7 +33,7 @@ $ bower install ripple-qr-pos --save
 3. Start using it!
 
     ```html
-    <ripple-qr-pos></ripple-qr-pos>
+    <ripple-qr-pos receiver="rippleaddress" currency="USD"></ripple-qr-pos>
     ```
 
 ## Options
