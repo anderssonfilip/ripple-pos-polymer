@@ -11,7 +11,8 @@
         "polymer",
         "Ripple",
         "qr-code",
-        "point of sale"
+        "point of sale",
+        "web-components"
     ],
     "ignore": [
         "**/.*",
